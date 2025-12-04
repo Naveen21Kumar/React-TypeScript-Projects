@@ -1,11 +1,4 @@
-export type Person = {
-  id: number;
-  name: string;
-  age: number;
-  image: string;
-};
-
-const data: Person[] = [
+const data = [
   {
     id: 1,
     name: 'Bertie Yates',
