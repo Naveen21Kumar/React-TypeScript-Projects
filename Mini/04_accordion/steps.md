@@ -25,4 +25,4 @@
    
 6. on button click, assign the state value with the `Id` of the question item. Ensure if `active Id === Id`, then display the `info` that matches this condition. 
   
-7. Handle the `Info closing logic` inside the button click function. If Id is not matching return `null` else the matching Id.  
+7. Handle the Info closing button logic inside the button click function. If Id is not matching return `null` else the matching Id.  
