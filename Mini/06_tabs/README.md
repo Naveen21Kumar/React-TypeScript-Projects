@@ -1,73 +1,57 @@
-# React + TypeScript + Vite
+## Figma URL
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Tabs](https://www.figma.com/file/FJC19b9eUWS62HKR8L9Dmn/Tabs?node-id=0%3A1&t=8Rio02EFK1r9ItDW-1)
 
-Currently, two official plugins are available:
+## Steps
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### Fetch Data
 
-## React Compiler
+In App.jsx, use the fetch API to get job information from an external API. Use the useEffect hook to make the API call when the component mounts. While the data is being fetched, set up a loading state that displays a message to the user.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+#### State Value
 
-## Expanding the ESLint configuration
+Once the data has been fetched, store it in a state variable using the useState hook. This will allow you to modify the data and have those changes automatically reflected in the rendered output.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+#### JobInfo
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Create a JobInfo component to display the first job in the list. Use object destructuring to extract the relevant data from the job object. Display the company, dates, title, and duties, using the Duties component to render the list of duties.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+#### JobDuties
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+In the Duties component, iterate over the array of duties and render each item. If you want to use icons, you will need to install the react-icons library.
+
+#### UUID Library
+
+```sh
+npm install uuid
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
 ```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+import { v4 as uuidv4 } from 'uuid';
 ```
+
+Since the job data does not have an id, you can install the uuid library to generate unique ids for each job. Use these ids instead of the index to set the key prop for the JobInfo and Duties components.
+
+#### BtnContainer
+
+Set up a BtnContainer component and pass the jobs array, currentItem state variable, and setCurrentItem function down as props. In the BtnContainer component, create a button for each job in the jobs array,
+
+#### CurrentItem
+
+Create a currentItem state variable in App.jsx and set it to 0 initially. Pass this state variable down to the JobInfo component as a prop, and use it to display the current job.
+
+#### SetCurrentItem
+
+Attach the setCurrentItem function to each button.
+When the user clicks a button, the setCurrentItem function should be called with the index of the selected job. This function should update the currentItem state variable, causing the JobInfo component to render the selected job.
+
+Overall, the flow of the application should look something like this:
+
+- In App.jsx, use the fetch API to get job information from an external API, set up a loading state, and display a message to the user while the data is being fetched.
+- Once the data has been fetched, store it in a state variable using the useState hook.
+- Create a JobInfo component to display the first job in the list, using object destructuring to extract the relevant data from the job object.
+- Use the Duties component to render the list of duties for each job.
+- Use the uuid library to generate unique ids for each job, and use these ids instead of the index to set the key prop for the JobInfo and Duties components.
+- Create a currentItem state variable in App.jsx and pass it down to the JobInfo component as a prop, using it to display the current job.
+- Set up a BtnContainer component and pass the jobs array, currentItem state variable, and setCurrentItem function down as props.
+- In the BtnContainer component, create a button for each job in the jobs array, and attach the setCurrentItem function to each button to change the currentItem state variable and render the selected job.

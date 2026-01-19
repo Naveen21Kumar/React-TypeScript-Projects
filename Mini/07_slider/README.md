@@ -1,73 +1,59 @@
-# React + TypeScript + Vite
+## Figma URL
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Slider](https://www.figma.com/file/QfMzzThSYmgabSvn4t8Yfe/Slider?node-id=0%3A1&t=IpsYjMUn3Xj3Hs3N-1)
 
-Currently, two official plugins are available:
+## Steps
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### Explore Data
 
-## React Compiler
+Explore arrays in data.js
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+#### Import Data and Set State Value
 
-## Expanding the ESLint configuration
+Create Carousel.jsx, import all arrays from data.js and set up state value using the useState hook, use shortList as default value (for now).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+#### Setup Container and Prev/Next Buttons
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+In the return statement, set up a container element to hold all the slides. Inside the container, iterate over the people state value to create each slide.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Set up prev and next buttons outside the container element. You can use the onClick event to trigger functions that will change the current slide.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+#### Setup CSS
+
+Use CSS to style the container and slides. Set the container to position:relative and the slides and prev/next buttons to position:absolute. You can also set the width and height of the container and slides to control their size.
+
+Switch default value in people state value. Set it equal to list or longList
+
+#### Main Logic
+
+To move the slides back and forth, use the transform property with a translateX value. For example, to move the slides to the left, you can use the transform:translateX(-100%) property however to move the slides to the right, you can use the transform:translateX(100%) property. For the active slide we will use transform:translateX(0)
+
+#### Current Person
+
+Create a currentPerson state value in App.jsx and set it to 0 initially. This will allow you to keep track of the current slide being displayed.
+
+#### Prev and Next
+
+Implement the prev and next functionality using the setCurrentPerson function to update the currentPerson state value.
+
+#### Auto Slide
+
+Implement the auto slide functionality using the setInterval function to change the currentPerson state value at regular intervals.
+
+#### Extra - React Slick Library
+
+[React Slick Docs](https://react-slick.neostack.com/)
+
+```sh
+npm install react-slick slick-carousel --save
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Overall, the flow of the application should look something like this:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- In App.jsx, import the people array from data.js and set it up as a state value using the useState hook.
+- In the return statement, set up a container element to hold all the slides, and iterate over the people state value to create each slide.
+- Set up prev and next buttons and style the container,slides and buttons.
+- Uncomment the rest of the items in the people array.
+- Create a currentPerson state value in App.jsx and set it to initially.
+- Implement the prev and next functionality using the setCurrentPerson function to update the currentPerson state value and move the slides back and forth using the transform property with a translateX value.
+- Implement the auto slide functionality using the setInterval function to change the currentPerson state value at regular intervals.

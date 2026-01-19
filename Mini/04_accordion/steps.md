@@ -12,7 +12,6 @@
 --- 
 
 ## Accordion (Radio):
-
 1. Read the input data from `data.ts`
    
 2. Iterate and render the data with `Questions.tsx` for list and `SingleQuestion.tsx` for single question.
