@@ -14,21 +14,21 @@ A React application that displays a list of birthdays and provides functionality
 Read the JSON data from `data.ts` and import it into your application.
 
 ```typescript
-import { people } from './data';
+import { data } from './data';
 ```
 
 ### Step 2: Create State Variable
 Initialize a state variable using the `useState` hook to store the birthday data.
 
 ```typescript
-const [people, setPeople] = useState(initialData);
+const [people, setPeople] = useState(data);
 ```
 
 ### Step 3: Display Birthday Count
 Add a heading in `App.tsx` to display the total number of birthdays.
 
 ```typescript
-<h1>{people.length} Birthdays Today</h1>
+<h3>{people.length} Birthdays Today</h3>
 ```
 
 ### Step 4: Create Components

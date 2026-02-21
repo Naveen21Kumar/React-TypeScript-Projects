@@ -3,11 +3,11 @@ import SinglePerson from './SinglePerson';
 
 const List = ({ people }: { people: Person[] }) => {
   return (
-    <ul>
+    <section>
       {people.map((person) => {
         return <SinglePerson person={person} key={person.id} />;
       })}
-    </ul>
+    </section>
   );
 };
 
