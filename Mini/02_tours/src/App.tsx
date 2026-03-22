@@ -2,32 +2,54 @@ import './App.css';
 import Loading from './Loading';
 import { useState, useEffect } from 'react';
 import Tours from './Tours';
+import type { Tour } from './types';
 
-const url = 'https://www.course-api.com/react-tours-project';
+const url = 'https://www.course-api.com/react-tours-project/21';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [tours, setTours] = useState([]);
+  const [tours, setTours] = useState<Tour[]>([]);
+  const [error, setError] = useState<string | null>(null)
 
-  async function fetchTours() {
-    setIsLoading(true);
-    try {
-      const response = await fetch(url);
-      const tours = await response.json();
-      setTours(tours);
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  }
-
-  const removeTour = (id) => {
+  const removeTour = (id: string) => {
     const newTours = tours.filter((tour) => tour.id !== id);
     setTours(newTours);
   };
 
+  // for Refresh button
+  const fetchTours = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Failed to fetch tours')
+      }
+      const tours = await response.json();
+      setTours(tours)
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'An unknown error occurred');
+    }
+    setIsLoading(false);
+  }
+
   useEffect(function () {
-    fetchTours();
+    const loadTours = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Failed to fetch tours')
+        }
+        const tours = await response.json();
+        setTours(tours);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'An unknown error occurred');
+      }
+      setIsLoading(false);
+    }
+    loadTours();
   }, []);
 
   if (isLoading) {
@@ -38,6 +60,23 @@ function App() {
     );
   }
 
+  if (error) {
+    return (
+      <main>
+        <div className='title'>
+          <h2>Error : {error}</h2>
+          <button
+            type='button'
+            className='btn'
+            onClick={() => fetchTours()}
+            style={{ marginTop: '2rem' }}>
+            Refresh
+          </button>
+        </div>
+      </main>
+    )
+  }
+
   if (tours.length === 0) {
     return (
       <main>
@@ -46,7 +85,7 @@ function App() {
           <button
             type='button'
             className='btn'
-            onClick={fetchTours}
+            onClick={() => fetchTours()}
             style={{ marginTop: '2rem' }}>
             Refresh
           </button>

@@ -1,6 +1,12 @@
-import Tour from './Tour';
+import SingleTour from './SingleTour';
+import type { Tour } from './types';
 
-const Tours = ({ tours, removeTour }) => {
+type TourProps = {
+  tours: Tour[];
+  removeTour: (id: string) => void
+}
+
+const Tours = ({ tours, removeTour }: TourProps) => {
   return (
     <section>
       <div className='title'>
@@ -9,7 +15,7 @@ const Tours = ({ tours, removeTour }) => {
       </div>
       <div className='tours'>
         {tours.map((tour) => {
-          return <Tour {...tour} key={tour.id} removeTour={removeTour} />;
+          return <SingleTour {...tour} key={tour.id} removeTour={removeTour} />;
         })}
       </div>
     </section>

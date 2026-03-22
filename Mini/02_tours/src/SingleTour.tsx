@@ -1,6 +1,11 @@
 import { useState } from 'react';
+import type { Tour } from './types'
 
-const Tour = ({ id, name, info, image, price, removeTour }) => {
+type SingleTourProps = Tour & {
+  removeTour: (id: string) => void
+}
+
+const SingleTour = ({ id, name, info, image, price, removeTour }: SingleTourProps) => {
   const [readMore, setReadMore] = useState(false);
   return (
     <article className='single-tour'>
@@ -24,4 +29,4 @@ const Tour = ({ id, name, info, image, price, removeTour }) => {
   );
 };
 
-export default Tour;
+export default SingleTour;
