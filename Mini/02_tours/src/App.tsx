@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Tours from './Tours';
 import type { Tour } from './types';
 
-const url = 'https://www.course-api.com/react-tours-project/21';
+const url = 'https://www.course-api.com/react-tours-project/';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
