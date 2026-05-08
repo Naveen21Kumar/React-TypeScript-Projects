@@ -34,10 +34,10 @@ const [error, setError] = useState<string | null>(null);
 ```
 
 ### Step 3: Fetch Tours Data
-Create an async function `fetchTours()` that fetches tour data from the external API using the `fetch` API.
+Create an async function `loadTours()` that fetches tour data from the external API using the `fetch` API.
 
 ```typescript
-const fetchTours = async () => {
+const loadTours = async () => {
   setIsLoading(true);
   setError(null);
   try {
@@ -57,7 +57,7 @@ Use the `useEffect` hook to fetch tours when the component first mounts.
 
 ```typescript
 useEffect(() => {
-  fetchTours();
+  loadTours();
 }, []);
 ```
 
