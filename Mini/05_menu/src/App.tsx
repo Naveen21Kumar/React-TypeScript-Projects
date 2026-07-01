@@ -12,6 +12,7 @@ function App() {
   const filterMenuItems = (category: string) => {
     if (category === 'all') {
       setMenu(data);
+      return;
     }
     const filteredItems = data.filter((item) => item.category === category);
     setMenu(filteredItems);
