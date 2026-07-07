@@ -1,9 +1,9 @@
 import { v4 as  uuid } from "uuid";
 
-function BtnContainer({tabs, setCurrentItem}) {  
+function BtnContainer({jobs, setCurrentItem, currentItem}) {  
   return (
-    <div>{tabs.map((tab, index)=>{
-        return <button key={uuid()} onClick={()=>{setCurrentItem(index)}}>{tab.company}</button>
+    <div className="btn-container">{jobs.map((job, index)=>{
+        return <button className={currentItem === index ? 'job-btn active-btn' :'job-btn'} key={uuid()} onClick={()=>{setCurrentItem(index)}}>{job.company}</button>
     })}</div>
   )
 }
