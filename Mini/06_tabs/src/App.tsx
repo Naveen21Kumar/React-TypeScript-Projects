@@ -2,23 +2,24 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import JobInfo from "./JobInfo";
 import BtnContainer from "./BtnContainer";
+import type { Jobs } from "./types";
 
 const url = "https://www.course-api.com/react-tabs-project";
 
 function App() {
-  const [jobs, setJobs]  = useState([]);
+  const [jobs, setJobs]  = useState<Jobs[]>([]);
   const [currentItem, setCurrentItem]  = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const fetchData = async () => {
+  const fetchJobs = async () => {
     const response = await fetch(url);
-    const data = await response.json();
+    const data = await response.json() as Jobs[];
     setJobs(data);
     setIsLoading(false);
     }
 
   useEffect(() => {
-    fetchData();
+    fetchJobs();
   }, []);
   
   const currentJob = jobs[currentItem];
