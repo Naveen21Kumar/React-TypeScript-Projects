@@ -342,3 +342,19 @@ ul {
     }
     
 }
+/* ============= SLICK CONTAINER =============== */
+.slick-container {
+    width: 80vw;
+    margin: 0 auto;
+    margin-top: 10rem;
+    max-width: var(--max-width);
+    text-align: center;
+}
+.slick-slide img {
+  display: inline-block !important;
+}
+.slick-prev:before, 
+.slick-next:before{
+  color: var(--primary-800) !important;
+  padding: 5px;
+} 
