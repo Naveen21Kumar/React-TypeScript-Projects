@@ -5,8 +5,14 @@ import { nanoid } from "nanoid";
 
 function App() {
   const [amount, setAmount] = useState<number>(1);
-
   const [text, setText] = useState<string[]>([]);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(text.join("\n\n"));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,10 +35,21 @@ function App() {
             step="1"
             onChange={(e) => setAmount(Number(e.target.value))}
           />
-          <button type="submit" className="btn">
-            {" "}
-            Generate
-          </button>
+          <div className="button-container">
+            <button type="submit" className="btn">
+              Generate
+            </button>
+            <button
+              type="button"
+              className={`copy-btn ${copied ? "copied" : ""}`}
+              onClick={handleCopy}
+              disabled={text.length === 0}
+              aria-label="Copy generated text"
+              title="Copy generated text"
+            >
+              📋 {copied ? "Copied" : "Copy"}
+            </button>
+          </div>
         </form>
         <article className="lorem-text">
           {text.map((sentence) => {

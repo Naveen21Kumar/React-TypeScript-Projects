@@ -77,3 +77,25 @@ console.log(id); // Output: "Uakgb_J5m9g-0JDMbcJqL"
 In this example, we first import the nanoid function from the nanoid library. We then call the nanoid() function to generate a new, random ID. Finally, we output the ID to the console.
 
 One of the benefits of using nanoid is that it generates IDs that are highly unlikely to collide, even when generating a large number of them. This is achieved by using a combination of randomness and a predefined set of characters, which ensures that each ID is unique and unpredictable.
+
+#### Copy Generated Text
+
+The application includes a **Copy** button next to the **Generate** button. The button copies all currently generated paragraphs to the clipboard.
+
+The copy functionality works as follows:
+
+- The `text` state stores the generated paragraphs.
+- `text.join("\n\n")` combines the paragraphs into one string with a blank line between them.
+- `navigator.clipboard.writeText()` copies the combined string to the user's clipboard.
+- The button is disabled until at least one paragraph has been generated.
+- After copying, the button displays **Copied** for 1.5 seconds before changing back to **Copy**.
+
+Example:
+
+```tsx
+const handleCopy = async () => {s
+	await navigator.clipboard.writeText(text.join("\n\n"));
+	setCopied(true);
+	setTimeout(() => setCopied(false), 1500);
+};
+```
