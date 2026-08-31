@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
-const SingleColor = ({ color }) => {
+const SingleColor = ({ color, index }) => {
   const { hex, weight } = color;
-
   const saveToClipboard = async () => {
     if (navigator.clipboard) {
       try {
@@ -16,9 +15,13 @@ const SingleColor = ({ color }) => {
   };
 
   return (
-    <article style={{ backgroundColor: `#${hex}` }} onClick={saveToClipboard}>
-      <p>{weight}%</p>
-      <p>#{hex}</p>
+    <article
+      style={{ backgroundColor: `#${hex}` }}
+      onClick={saveToClipboard}
+      className={index > 10 ? "color color-light" : "color"}
+    >
+      <p className="percentage-value">{weight}%</p>
+      <p className="color-value">#{hex}</p>
     </article>
   );
 };

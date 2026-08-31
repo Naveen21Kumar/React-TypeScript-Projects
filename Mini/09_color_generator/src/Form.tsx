@@ -11,9 +11,9 @@ const Form = ({ addColor }) => {
     addColor(color);
   };
   return (
-    <section>
+    <section className="container">
       <h4>color generator</h4>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="color-form">
         <input
           type="color"
           name="color"
@@ -29,7 +29,11 @@ const Form = ({ addColor }) => {
           value={color}
           onChange={handleChange}
         />
-        <button type="submit" style={{ background: `${color}` }}>
+        <button
+          type="submit"
+          className="btn"
+          style={{ background: `${color}` }}
+        >
           submit
         </button>
       </form>
