@@ -1,5 +1,7 @@
 import { toast } from "react-toastify";
-const SingleColor = ({ color, index }) => {
+import type Values from "values.js";
+
+const SingleColor = ({ color, index }: { color: Values; index: number }) => {
   const { hex, weight } = color;
   const saveToClipboard = async () => {
     if (navigator.clipboard) {

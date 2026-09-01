@@ -1,7 +1,8 @@
+import type Values from "values.js";
 import SingleColor from "./SingleColor";
 import { nanoid } from "nanoid";
 
-const ColorList = ({ colors }) => {
+const ColorList = ({ colors }: { colors: Values[] }) => {
   return (
     <section className="colors">
       {colors.map((color, index) => {
