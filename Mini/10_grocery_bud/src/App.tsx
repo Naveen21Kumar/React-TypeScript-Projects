@@ -3,6 +3,7 @@ import "./App.css";
 import { nanoid } from "nanoid";
 import Form from "./Form";
 import Items from "./Items";
+import { ToastContainer, toast } from "react-toastify";
 
 function App() {
   const [items, setItems] = useState(getLocalStorage());
@@ -16,6 +17,12 @@ function App() {
   }
 
   const addItem = (name) => {
+    if (!name) {
+      toast.error("Please provide a value", {
+        theme: "colored",
+      });
+      return;
+    }
     const newItem = {
       id: nanoid(),
       name,
@@ -24,12 +31,18 @@ function App() {
     const nextItem = [...items, newItem];
     setItems(nextItem);
     setLocalStorage(nextItem);
+    toast.success("Item added to the list", {
+      theme: "colored",
+    });
   };
 
   function deleteItem(itemId) {
     const deleteItem = items.filter((item) => item.id !== itemId);
     setItems(deleteItem);
     setLocalStorage(deleteItem);
+    toast.success("Item deleted", {
+      theme: "colored",
+    });
   }
 
   function editItem(itemId) {
@@ -42,6 +55,9 @@ function App() {
     });
     setItems(toggleItem);
     setLocalStorage(toggleItem);
+    toast.info("Item Completed!", {
+      theme: "colored",
+    });
   }
 
   return (
@@ -49,6 +65,7 @@ function App() {
       <h4>grocery bud</h4>
       <Form addItem={addItem} />
       <Items items={items} deleteItem={deleteItem} editItem={editItem} />
+      <ToastContainer />
     </section>
   );
 }

@@ -6,7 +6,9 @@ const SingleItem = ({ item, deleteItem, editItem }) => {
         checked={item.completed}
         onChange={() => editItem(item.id)}
       />
-      <p>{item.name}</p>
+      <p style={{ textDecoration: item.completed && "line-through" }}>
+        {item.name}
+      </p>
       <button
         type="button"
         className="btn remove-btn"
