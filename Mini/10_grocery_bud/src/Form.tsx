@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-const Form = ({ addItem }) => {
+const Form = ({ addItem }: { addItem(name: string): void }) => {
   const [newItemName, setNewItemName] = useState("");
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     addItem(newItemName);
     setNewItemName("");

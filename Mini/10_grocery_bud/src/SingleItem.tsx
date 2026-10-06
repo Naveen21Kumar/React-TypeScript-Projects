@@ -1,4 +1,6 @@
-const SingleItem = ({ item, deleteItem, editItem }) => {
+import type { ItemProps } from "./types";
+
+const SingleItem = ({ item, deleteItem, editItem }: ItemProps) => {
   return (
     <article className="single-item">
       <input
@@ -6,7 +8,9 @@ const SingleItem = ({ item, deleteItem, editItem }) => {
         checked={item.completed}
         onChange={() => editItem(item.id)}
       />
-      <p style={{ textDecoration: item.completed && "line-through" }}>
+      <p
+        style={{ textDecoration: item.completed ? "line-through" : undefined }}
+      >
         {item.name}
       </p>
       <button

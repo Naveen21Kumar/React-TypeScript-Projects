@@ -4,19 +4,21 @@ import { nanoid } from "nanoid";
 import Form from "./Form";
 import Items from "./Items";
 import { ToastContainer, toast } from "react-toastify";
+import type { NewItem } from "./types";
 
 function App() {
   const [items, setItems] = useState(getLocalStorage());
 
-  function setLocalStorage(item) {
+  function setLocalStorage(item: NewItem[]) {
     localStorage.setItem("items", JSON.stringify(item));
   }
 
-  function getLocalStorage() {
-    return JSON.parse(localStorage.getItem("items")) || [];
+  function getLocalStorage(): NewItem[] {
+    const storedItems = localStorage.getItem("items");
+    return storedItems ? JSON.parse(storedItems) : [];
   }
 
-  const addItem = (name) => {
+  const addItem = (name: string) => {
     if (!name) {
       toast.error("Please provide a value", {
         theme: "colored",
@@ -36,8 +38,8 @@ function App() {
     });
   };
 
-  function deleteItem(itemId) {
-    const deleteItem = items.filter((item) => item.id !== itemId);
+  function deleteItem(itemId: string) {
+    const deleteItem = items.filter((item: NewItem) => item.id !== itemId);
     setItems(deleteItem);
     setLocalStorage(deleteItem);
     toast.success("Item deleted", {
@@ -45,19 +47,22 @@ function App() {
     });
   }
 
-  function editItem(itemId) {
-    const toggleItem = items.map((item) => {
+  function editItem(itemId: string) {
+    const toggleItem = items.map((item: NewItem) => {
       if (item.id === itemId) {
-        return { ...item, completed: !item.completed };
-      } else {
-        return item;
+        const nextCompleted = !item.completed;
+        toast.info(
+          nextCompleted ? "Item Completed!" : "Item marked incomplete",
+          {
+            theme: "colored",
+          },
+        );
+        return { ...item, completed: nextCompleted };
       }
+      return item;
     });
     setItems(toggleItem);
     setLocalStorage(toggleItem);
-    toast.info("Item Completed!", {
-      theme: "colored",
-    });
   }
 
   return (
