@@ -295,13 +295,13 @@ nav {
   color: var(--primary-800);
 }
 .links-container {
-  height: 0;
+  /* height: 0; */
   overflow: hidden;
   transition: var(--transition);
 }
-.show-container {
+/* .show-container {
   height: 10rem;
-}
+} */
 .links a {
   color: var(--grey-700);
   display: block;
@@ -342,8 +342,22 @@ nav {
     display: flex;
     gap: 0.5rem;
   }
+  .links a {
+    padding: 0;
+  }
+  .links a:hover {
+    padding: 0;
+    background: transparent;
+  }
   .social-icons {
     display: flex;
     gap: 0.5rem;
+  }
+  .social-icons a {
+    color: var(--primary-500);
+    transition: var(--transition);
+  }
+  .social-icons a:hover {
+    color: var(--primary-300);
   }
 }
