@@ -6,7 +6,7 @@ import { FaBars } from "react-icons/fa";
 const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false);
   const linksContainerRef = useRef(null);
-  const linksRef = useRef(null);
+  const linksRef = useRef<HTMLUListElement>(null);
 
   const toggleLinks = () => {
     setShowLinks(!showLinks);
@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const styleLinks = {
     height: showLinks
-      ? `${linksRef.current.getBoundingClientRect().height}px`
+      ? `${linksRef.current?.getBoundingClientRect().height}px`
       : "0px",
   };
 
